@@ -1,51 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - BookSwap</title>
-    <link rel="stylesheet" href="../public/assets/css/styles.css">
-</head>
-<body>
-        <!-- Navigation -->
-    <nav class="navbar">
-      <div class="container">
-        <a href="index.html" class="nav-logo">
-          <div class="nav-logo-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-          </div>
-          <span class="nav-logo-text">BookSwap</span>
-        </a>
-        
-        <div class="nav-links">
-          <a href="../index.html" class="nav-link">Home</a>
-          <a href="books.html" class="nav-link">Browse Books</a>
-          <a href="about.html" class="nav-link">About Us</a>
-          <a href="contact.html" class="nav-link active">Contact</a>
-        </div>
-        
-        <div class="nav-cta">
-          <a href="books.html" class="btn btn-primary">Start Exchanging</a>
-        </div>
-        
-        <button class="nav-mobile-toggle" id="mobile-nav-toggle" aria-label="Toggle menu">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
-        </button>
-      </div>
-      
-      <div class="nav-mobile" id="mobile-nav">
-        <div class="container">
-          <div class="nav-mobile-links">
-            <a href="../index.html" class="nav-mobile-link">Home</a>
-            <a href="books.html" class="nav-mobile-link">Browse Books</a>
-            <a href="about.html" class="nav-mobile-link active">About & Contact</a>
-            <a href="books.html" class="btn btn-primary" style="margin-top: 0.5rem;">Start Exchanging</a>
-          </div>
-        </div>
-      </div>
-    </nav>
+<?php
+$page_title = "Contact Us";
+require_once __DIR__ . "/../includes/header.php";
+require_once __DIR__ . "/../includes/navbar.php";
+?>
 
-        <!-- Page Header -->
+    <!-- Page Header -->
     <header class="page-header">
       <div class="container">
         <h1 class="section-title">Contact Us</h1>
@@ -142,42 +101,6 @@
       </div>
     </section>
 <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-content">
-          <div class="footer-brand">
-            <a href="index.html" class="nav-logo">
-              <div class="nav-logo-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-              </div>
-              <span class="nav-logo-text">BookSwap</span>
-            </a>
-            <p>Building a community of book lovers who share their stories, one exchange at a time.</p>
-          </div>
-          
-          <div class="footer-links">
-            <h4>Quick Links</h4>
-            <ul>
-              <li><a href="index.html">Home</a></li>
-              <li><a href="books.html">Browse Books</a></li>
-              <li><a href="about.html">About Us</a></li>
-              <li><a href="about.html#contact">Contact</a></li>
-            </ul>
-          </div>
-          
-          <div class="footer-community">
-            <h4>Join Our Community</h4>
-            <p>Over 5,000 book lovers exchanging stories every day.</p>
-            <a href="about.html" class="btn btn-outline">Get In Touch</a>
-          </div>
-        </div>
-        
-        <div class="footer-bottom">
-          <p>© 2024 BookSwap. All rights reserved.</p>
-          <p>Made with <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg> for book lovers</p>
-        </div>
-      </div>
-    </footer>
-<script src="../public/assets/js/script.js"></script>
-</body>
-</html>
+<?php
+require_once __DIR__ . "/../includes/footer.php";
+?>

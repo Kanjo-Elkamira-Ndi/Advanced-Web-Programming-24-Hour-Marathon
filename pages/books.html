@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Browse and search books available for exchange in your community. Find your next great read on BookSwap.">
+  <title>Browse Books - BookSwap</title>
+  <link rel="stylesheet" href="../public/assets/css/styles.css">
+  <link rel="icon" href="favicon.ico">
+</head>
+<body>
+  <div class="page-wrapper">
+    <!-- Navigation -->
+  <nav class="navbar">
+      <div class="container">
+        <a href="index.html" class="nav-logo">
+          <div class="nav-logo-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+          </div>
+          <span class="nav-logo-text">BookSwap</span>
+        </a>
+        
+        <div class="nav-links">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="pages/books.html" class="nav-link active">Browse Books</a>
+          <a href="pages/about.html" class="nav-link">About</a>
+          <a href="pages/contact.html" class="nav-link">Contact</a>
+        </div>
+        
+        <div class="nav-cta">
+            <div class="nav-cta2">
+                <a href="pages/register.html" class="btn btn-outline">Register</a>
+                <a href="pages/register.html" class="btn btn-outline">Login</a>
+            </div>
+        </div>
+        
+        
+        <button class="nav-mobile-toggle" id="mobile-nav-toggle" aria-label="Toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        </button>
+      </div>
+      
+      <div class="nav-mobile" id="mobile-nav">
+        <div class="container">
+          <div class="nav-mobile-links">
+            <a href="index.html" class="nav-mobile-link active">Home</a>
+            <a href="pages/books.html" class="nav-mobile-link">Browse Books</a>
+            <a href="pages/about.html" class="nav-mobile-link">About & Contact</a>
+            <a href="pages/books.html" class="nav-mobile-link">Login</a>
+            <a href="pages/books.html" class="nav-mobile-link">Register</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+      <div class="container">
+        <h1 class="section-title">Browse Books</h1>
+        <p>Explore our collection of books available for exchange. Use the filters to find exactly what you're looking for.</p>
+      </div>
+    </header>
+
+    <!-- Filters Section -->
+    <section class="filters-section">
+      <div class="container">
+        <div class="filters-container">
+          <!-- Search Input -->
+          <div class="search-input-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" id="search-input" class="search-input" placeholder="Search by title or author...">
+          </div>
+          
+          <!-- Desktop Filters -->
+          <div class="filter-selects">
+            <select id="genre-select" class="filter-select">
+              <option value="All Genres">All Genres</option>
+              <option value="Literary Fiction">Literary Fiction</option>
+              <option value="Historical Fiction">Historical Fiction</option>
+              <option value="Mystery">Mystery</option>
+              <option value="Self-Help">Self-Help</option>
+              <option value="Romance">Romance</option>
+              <option value="Science Fiction">Science Fiction</option>
+              <option value="Fantasy">Fantasy</option>
+              <option value="Biography">Biography</option>
+              <option value="Non-Fiction">Non-Fiction</option>
+            </select>
+            
+            <select id="condition-select" class="filter-select">
+              <option value="All Conditions">All Conditions</option>
+              <option value="Like New">Like New</option>
+              <option value="Good">Good</option>
+              <option value="Fair">Fair</option>
+            </select>
+            
+            <button id="clear-filters" class="clear-filters" style="display: none;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+              Clear
+            </button>
+          </div>
+          
+          <!-- Mobile Filter Toggle -->
+          <button id="mobile-filter-toggle" class="btn btn-outline mobile-filter-toggle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+            Filters
+          </button>
+        </div>
+        
+        <!-- Mobile Filters Dropdown -->
+        <div id="mobile-filters" class="mobile-filters">
+          <label for="mobile-genre-select">Genre</label>
+          <select id="mobile-genre-select" class="filter-select">
+            <option value="All Genres">All Genres</option>
+            <option value="Literary Fiction">Literary Fiction</option>
+            <option value="Historical Fiction">Historical Fiction</option>
+            <option value="Mystery">Mystery</option>
+            <option value="Self-Help">Self-Help</option>
+            <option value="Romance">Romance</option>
+            <option value="Science Fiction">Science Fiction</option>
+            <option value="Fantasy">Fantasy</option>
+            <option value="Biography">Biography</option>
+            <option value="Non-Fiction">Non-Fiction</option>
+          </select>
+          
+          <label for="mobile-condition-select">Condition</label>
+          <select id="mobile-condition-select" class="filter-select">
+            <option value="All Conditions">All Conditions</option>
+            <option value="Like New">Like New</option>
+            <option value="Good">Good</option>
+            <option value="Fair">Fair</option>
+          </select>
+          
+          <button id="mobile-clear-filters" class="clear-filters" style="width: 100%;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            Clear All Filters
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Books Grid Section -->
+    <section class="books-section" style="flex: 1;">
+      <div class="container">
+        <p id="results-count" class="results-count">Showing 6 books</p>
+        
+        <div class="books-grid full-grid" id="books-grid">
+          <!-- Books will be inserted by JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-brand">
+            <a href="index.html" class="nav-logo">
+              <div class="nav-logo-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+              </div>
+              <span class="nav-logo-text">BookSwap</span>
+            </a>
+            <p>Building a community of book lovers who share their stories, one exchange at a time.</p>
+          </div>
+          
+          <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="books.html">Browse Books</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="about.html#contact">Contact</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-community">
+            <h4>Join Our Community</h4>
+            <p>Over 5,000 book lovers exchanging stories every day.</p>
+            <a href="about.html" class="btn btn-outline">Get In Touch</a>
+          </div>
+        </div>
+        
+        <div class="footer-bottom">
+          <p>© 2024 BookSwap. All rights reserved.</p>
+          <p>Made with <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg> for book lovers</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../public/assets/js/script.js"></script>
+</body>
+</html>

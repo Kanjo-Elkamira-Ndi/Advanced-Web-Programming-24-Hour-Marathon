@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - BookSwap</title>
+    <link rel="stylesheet" href="../public/assets/css/styles.css">
+</head>
+<body>
+        <!-- Navigation -->
+    <nav class="navbar">
+      <div class="container">
+        <a href="index.html" class="nav-logo">
+          <div class="nav-logo-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+          </div>
+          <span class="nav-logo-text">BookSwap</span>
+        </a>
+        
+        <div class="nav-links">
+          <a href="../index.html" class="nav-link">Home</a>
+          <a href="books.html" class="nav-link">Browse Books</a>
+          <a href="about.html" class="nav-link">About Us</a>
+          <a href="contact.html" class="nav-link active">Contact</a>
+        </div>
+        
+        <div class="nav-cta">
+          <a href="books.html" class="btn btn-primary">Start Exchanging</a>
+        </div>
+        
+        <button class="nav-mobile-toggle" id="mobile-nav-toggle" aria-label="Toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        </button>
+      </div>
+      
+      <div class="nav-mobile" id="mobile-nav">
+        <div class="container">
+          <div class="nav-mobile-links">
+            <a href="../index.html" class="nav-mobile-link">Home</a>
+            <a href="books.html" class="nav-mobile-link">Browse Books</a>
+            <a href="about.html" class="nav-mobile-link active">About & Contact</a>
+            <a href="books.html" class="btn btn-primary" style="margin-top: 0.5rem;">Start Exchanging</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+        <!-- Page Header -->
+    <header class="page-header">
+      <div class="container">
+        <h1 class="section-title">Contact Us</h1>
+        <p>We're building a community where books find new readers and stories continue to inspire. Founded in 2020, BookSwap connects book lovers across neighborhoods, making it easy to share your favorite reads and discover new ones.</p>
+      </div>
+    </header>
+
+   <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+      <div class="container">
+        <div class="contact-grid">
+          <!-- Contact Info -->
+          <div class="contact-info">
+            <h2 class="section-title">Get In Touch</h2>
+            <p>Have questions, feedback, or want to partner with us? We'd love to hear from you. Fill out the form and we'll get back to you within 24-48 hours.</p>
+            
+            <div class="contact-details">
+              <article class="contact-item">
+                <div class="contact-item-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                </div>
+                <div>
+                  <h4>Email Us</h4>
+                  <p>hello@bookswap.community</p>
+                </div>
+              </article>
+              
+              <article class="contact-item">
+                <div class="contact-item-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <div>
+                  <h4>Our Office</h4>
+                  <p>123 Literary Lane, Suite 400<br>New York, NY 10001</p>
+                </div>
+              </article>
+              
+              <article class="contact-item">
+                <div class="contact-item-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <div>
+                  <h4>Response Time</h4>
+                  <p>We typically respond within 24-48 business hours</p>
+                </div>
+              </article>
+            </div>
+          </div>
+          
+          <!-- Contact Form -->
+          <div class="contact-form-wrapper" id="contact-form-wrapper">
+            <h3>Send Us a Message</h3>
+            
+            <form id="contact-form" novalidate>
+              <div class="form-group">
+                <label for="name">Full Name <span class="required">*</span></label>
+                <input type="text" id="name" name="name" class="form-input" placeholder="John Doe">
+                <p class="error-message" style="display: none;"></p>
+              </div>
+              
+              <div class="form-group">
+                <label for="email">Email Address <span class="required">*</span></label>
+                <input type="email" id="email" name="email" class="form-input" placeholder="john@example.com">
+                <p class="error-message" style="display: none;"></p>
+              </div>
+              
+              <div class="form-group">
+                <label for="subject">Subject <span class="required">*</span></label>
+                <select id="subject" name="subject" class="form-select">
+                  <option value="">Select a subject</option>
+                  <option value="General Inquiry">General Inquiry</option>
+                  <option value="Book Exchange Help">Book Exchange Help</option>
+                  <option value="Report an Issue">Report an Issue</option>
+                  <option value="Partnership">Partnership Opportunity</option>
+                  <option value="Feedback">Feedback & Suggestions</option>
+                </select>
+                <p class="error-message" style="display: none;"></p>
+              </div>
+              
+              <div class="form-group">
+                <label for="message">Message <span class="required">*</span></label>
+                <textarea id="message" name="message" class="form-textarea" placeholder="Tell us how we can help you..."></textarea>
+                <p class="error-message" style="display: none;"></p>
+                <p id="char-count" class="char-count">0/500 characters</p>
+              </div>
+              
+              <button type="submit" class="btn btn-primary form-submit">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+<!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-brand">
+            <a href="index.html" class="nav-logo">
+              <div class="nav-logo-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+              </div>
+              <span class="nav-logo-text">BookSwap</span>
+            </a>
+            <p>Building a community of book lovers who share their stories, one exchange at a time.</p>
+          </div>
+          
+          <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="books.html">Browse Books</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="about.html#contact">Contact</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-community">
+            <h4>Join Our Community</h4>
+            <p>Over 5,000 book lovers exchanging stories every day.</p>
+            <a href="about.html" class="btn btn-outline">Get In Touch</a>
+          </div>
+        </div>
+        
+        <div class="footer-bottom">
+          <p>© 2024 BookSwap. All rights reserved.</p>
+          <p>Made with <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg> for book lovers</p>
+        </div>
+      </div>
+    </footer>
+<script src="../public/assets/js/script.js"></script>
+</body>
+</html>

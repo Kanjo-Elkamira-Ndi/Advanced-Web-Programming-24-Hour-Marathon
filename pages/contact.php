@@ -2,8 +2,35 @@
 $page_title = "Contact Us";
 require_once __DIR__ . "/../includes/header.php";
 require_once __DIR__ . "/../includes/navbar.php";
-?>
 
+?>
+<?php
+
+$success_message = "";
+$error_message = "";
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+  $name = trim($_POST["name"] ?? "");
+  $email = trim($_POST["email"] ?? "");
+  $subject = trim($_POST["subject"] ?? "");
+  $message = trim($_POST["message"] ?? "");
+
+  // Basic validation
+  if ($name === "" || $email === "" || $subject === "" || $message === "") {
+    $error_message = "Please fill in all required fields.";
+  } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $error_message = "Please enter a valid email address.";
+  } elseif (strlen($message) < 10) {
+    $error_message = "Your message is too short. Please provide more details.";
+  } else {
+    // Saved to DB later or send email later.
+    $success_message = "Thanks, " . htmlspecialchars($name) . "! Your message has been received. We'll get back to you within 24-48 hours.";
+
+    // Clear form after success
+    $_POST = [];
+  }
+}
+?>
     <!-- Page Header -->
     <header class="page-header">
       <div class="container">
@@ -38,7 +65,7 @@ require_once __DIR__ . "/../includes/navbar.php";
                 </div>
                 <div>
                   <h4>Our Office</h4>
-                  <p>123 Literary Lane, Suite 400<br>New York, NY 10001</p>
+                  <p>YIBS, Carrefour Simbock<br>Yaounde</p>
                 </div>
               </article>
               
@@ -56,18 +83,33 @@ require_once __DIR__ . "/../includes/navbar.php";
           
           <!-- Contact Form -->
           <div class="contact-form-wrapper" id="contact-form-wrapper">
+            <?php if (!empty($success_message)): ?>
+              <div class="alert success">
+                <?php echo $success_message; ?>
+              </div>
+            <?php endif; ?>
+
+            <?php if (!empty($error_message)): ?>
+              <div class="alert error">
+                <?php echo htmlspecialchars($error_message); ?>
+              </div>
+            <?php endif; ?>
             <h3>Send Us a Message</h3>
             
-            <form id="contact-form" novalidate>
+            <form id="contact-form" method="POST" action="<?php echo BASE_URL; ?>/pages/about.php#contact" novalidate>
               <div class="form-group">
                 <label for="name">Full Name <span class="required">*</span></label>
-                <input type="text" id="name" name="name" class="form-input" placeholder="John Doe">
+                <input type="text" id="name" name="name" class="form-input"
+                  value="<?php echo htmlspecialchars($_POST["name"] ?? ""); ?>"
+                  placeholder="Alchemy Codes">
                 <p class="error-message" style="display: none;"></p>
               </div>
               
               <div class="form-group">
                 <label for="email">Email Address <span class="required">*</span></label>
-                <input type="email" id="email" name="email" class="form-input" placeholder="john@example.com">
+                <input type="email" id="email" name="email" class="form-input"
+                value="<?php echo htmlspecialchars($_POST["email"] ?? ""); ?>"
+                placeholder="alchemy@gmail.com">
                 <p class="error-message" style="display: none;"></p>
               </div>
               
@@ -75,18 +117,29 @@ require_once __DIR__ . "/../includes/navbar.php";
                 <label for="subject">Subject <span class="required">*</span></label>
                 <select id="subject" name="subject" class="form-select">
                   <option value="">Select a subject</option>
-                  <option value="General Inquiry">General Inquiry</option>
-                  <option value="Book Exchange Help">Book Exchange Help</option>
-                  <option value="Report an Issue">Report an Issue</option>
-                  <option value="Partnership">Partnership Opportunity</option>
-                  <option value="Feedback">Feedback & Suggestions</option>
+                  <option value="General Inquiry" <?php echo (($_POST["subject"] ?? "") === "General Inquiry") ? "selected" : ""; ?>>
+                    General Inquiry
+                  </option>
+                   <option value="Book Exchange" <?php echo (($_POST["subject"] ?? "") === "Book Exchange") ? "selected" : ""; ?>>
+                  Book Exchange
+                </option>
+                  <option value="Report an Issue" <?php echo (($_POST["subject"] ?? "") === "Report an Issue") ? "selected" : ""; ?>>
+                    Report an Issue
+                  </option>
+                  <option value="Partnership" <?php echo (($_POST["subject"] ?? "") === "Partnership") ? "selected" : ""; ?>>
+                    Partnership Opportunity
+                  </option>
+                  <option value="Feedback" <?php echo (($_POST["subject"] ?? "") === "Feedback") ? "selected" : ""; ?>>
+                    Feedback & Suggestions
+                  </option>
                 </select>
                 <p class="error-message" style="display: none;"></p>
               </div>
               
               <div class="form-group">
                 <label for="message">Message <span class="required">*</span></label>
-                <textarea id="message" name="message" class="form-textarea" placeholder="Tell us how we can help you..."></textarea>
+                <textarea id="message" name="message" class="form-textarea"
+                  placeholder="Tell us how we can help you..."><?php echo htmlspecialchars($_POST["message"] ?? ""); ?></textarea>
                 <p class="error-message" style="display: none;"></p>
                 <p id="char-count" class="char-count">0/500 characters</p>
               </div>

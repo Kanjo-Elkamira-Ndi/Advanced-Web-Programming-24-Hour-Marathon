@@ -2,6 +2,18 @@
 $page_title = "Home";
 require_once __DIR__ . "/includes/header.php";
 require_once __DIR__ . "/includes/navbar.php";
+
+date_default_timezone_set("Africa/Douala"); // Cameroon timezone
+
+$hour = (int) date("H");
+
+if ($hour < 12) {
+  $greeting = "Good morning ☀️";
+} elseif ($hour < 18) {
+  $greeting = "Good afternoon 🌤️";
+} else {
+  $greeting = "Good evening 🌙";
+}
 ?>
 
 <!-- Hero Section -->
@@ -13,6 +25,7 @@ require_once __DIR__ . "/includes/navbar.php";
   </div>
   <div class="container">
     <div class="hero-content animate-slide-up">
+      <h1><?php echo $greeting; ?>, welcome to BookSwap!</h1>
       <span class="hero-badge">Join 5,000+ Book Lovers</span>
       <h1 class="hero-title">
         Share Stories,<br>

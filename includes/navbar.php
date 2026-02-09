@@ -34,11 +34,15 @@ $current_page = basename($_SERVER["PHP_SELF"]);
 
     <div class="nav-cta">
       <?php if (isset($_SESSION["user"])): ?>
-        <a href="<?php echo BASE_URL; ?>/pages/wishlist.php" class="btn btn-outline">My Wishlist ❤️</a>
-        <a href="<?php echo BASE_URL; ?>/pages/logout.php" class="btn btn-outline">Logout</a>
+        <div class="nav-cta2">
+            <a href="<?php echo BASE_URL; ?>/pages/wishlist.php" class="btn btn-outline">Wishlist</a>
+            <a href="<?php echo BASE_URL; ?>/api/auth/logout.php" class="btn btn-outline">Logout</a>
+        </div>
       <?php else: ?>
-        <a href="<?php echo BASE_URL; ?>/pages/register.php" class="btn btn-outline">Register</a>
-        <a href="<?php echo BASE_URL; ?>/pages/login.php" class="btn btn-outline">Login</a>
+        <div class="nav-cta2">
+            <a href="<?php echo BASE_URL; ?>/pages/register.php" class="btn btn-outline">Register</a>
+            <a href="<?php echo BASE_URL; ?>/pages/login.php" class="btn btn-outline">Login</a>
+        </div>
       <?php endif; ?>
     </div>
 

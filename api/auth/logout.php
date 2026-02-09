@@ -1,8 +1,14 @@
 <?php
-header("Content-Type: application/json");
+// api/auth/logout.php
+
 require_once __DIR__ . "/../../includes/session.php";
 
+// Clear all session variables
 session_unset();
+
+// Destroy session
 session_destroy();
 
-echo json_encode(["success" => true, "message" => "Logged out successfully"]);
+// Redirect user back to homepage (PRG pattern)
+header("Location: " . BASE_URL . "/index.php");
+exit;

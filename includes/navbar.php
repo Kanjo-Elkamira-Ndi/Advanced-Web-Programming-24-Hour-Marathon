@@ -1,17 +1,10 @@
 <?php
 // includes/navbar.php
+require_once __DIR__ . "/session.php";
 
 // Detect current page for active link highlighting
-$current_page = basename($_SERVER['PHP_SELF']);
+$current_page = basename($_SERVER["PHP_SELF"]);
 ?>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title><?php echo $page_title ?? "Community Book Exchange"; ?></title>
-
-<link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/styles.css">
-</head>
 
 <nav class="navbar">
   <div class="container">
@@ -40,10 +33,13 @@ $current_page = basename($_SERVER['PHP_SELF']);
     </div>
 
     <div class="nav-cta">
-      <div class="nav-cta2">
+      <?php if (isset($_SESSION["user"])): ?>
+        <a href="<?php echo BASE_URL; ?>/pages/wishlist.php" class="btn btn-outline">My Wishlist ❤️</a>
+        <a href="<?php echo BASE_URL; ?>/pages/logout.php" class="btn btn-outline">Logout</a>
+      <?php else: ?>
         <a href="<?php echo BASE_URL; ?>/pages/register.php" class="btn btn-outline">Register</a>
         <a href="<?php echo BASE_URL; ?>/pages/login.php" class="btn btn-outline">Login</a>
-      </div>
+      <?php endif; ?>
     </div>
 
     <button class="nav-mobile-toggle" id="mobile-nav-toggle" aria-label="Toggle menu">
@@ -68,11 +64,22 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <a href="<?php echo BASE_URL; ?>/pages/about.php"
           class="nav-mobile-link <?php echo ($current_page === 'about.php') ? 'active' : ''; ?>">About</a>
 
-        <a href="<?php echo BASE_URL; ?>/pages/login.php"
-          class="nav-mobile-link <?php echo ($current_page === 'login.php') ? 'active' : ''; ?>">Login</a>
+        <a href="<?php echo BASE_URL; ?>/pages/contact.php"
+          class="nav-mobile-link <?php echo ($current_page === 'contact.php') ? 'active' : ''; ?>">Contact</a>
 
-        <a href="<?php echo BASE_URL; ?>/pages/register.php"
-          class="nav-mobile-link <?php echo ($current_page === 'register.php') ? 'active' : ''; ?>">Register</a>
+        <?php if (isset($_SESSION["user"])): ?>
+          <a href="<?php echo BASE_URL; ?>/pages/wishlist.php"
+            class="nav-mobile-link <?php echo ($current_page === 'wishlist.php') ? 'active' : ''; ?>">My Wishlist ❤️</a>
+
+          <a href="<?php echo BASE_URL; ?>/pages/logout.php"
+            class="nav-mobile-link <?php echo ($current_page === 'logout.php') ? 'active' : ''; ?>">Logout</a>
+        <?php else: ?>
+          <a href="<?php echo BASE_URL; ?>/pages/login.php"
+            class="nav-mobile-link <?php echo ($current_page === 'login.php') ? 'active' : ''; ?>">Login</a>
+
+          <a href="<?php echo BASE_URL; ?>/pages/register.php"
+            class="nav-mobile-link <?php echo ($current_page === 'register.php') ? 'active' : ''; ?>">Register</a>
+        <?php endif; ?>
       </div>
     </div>
   </div>

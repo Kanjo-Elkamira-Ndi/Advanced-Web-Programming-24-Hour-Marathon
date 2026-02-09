@@ -2,7 +2,6 @@
 // includes/config.php
 
 // Base URL (useful later when hosting)
-// For now, keep it empty because you are running locally.
 define("BASE_URL", "/AWP_24_Hour_Marathon");
 
 // Project name

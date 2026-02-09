@@ -1,8 +1,43 @@
 <?php
 $page_title = "Browse Books";
+
+require_once __DIR__ . "/../includes/session.php";
+require_once __DIR__ . "/../includes/db.php";
 require_once __DIR__ . "/../includes/header.php";
 require_once __DIR__ . "/../includes/navbar.php";
+
+// Fetch books from DB
+$books = [];
+$sql = "SELECT * FROM books ORDER BY created_at DESC";
+$result = $conn->query($sql);
+
+if (!$result) {
+  die("SQL Error: " . $conn->error);
+}
+
+while ($row = $result->fetch_assoc()) {
+  $books[] = $row;
+}
+
+$totalBooks = count($books);
 ?>
+
+<!-- Flash Messages -->
+<div class="container" style="margin-top: 15px;">
+  <?php if (!empty($_SESSION["flash_success"])): ?>
+    <div class="alert alert-success">
+      <?= htmlspecialchars($_SESSION["flash_success"]) ?>
+    </div>
+    <?php unset($_SESSION["flash_success"]); ?>
+  <?php endif; ?>
+
+  <?php if (!empty($_SESSION["flash_error"])): ?>
+    <div class="alert alert-danger">
+      <?= htmlspecialchars($_SESSION["flash_error"]) ?>
+    </div>
+    <?php unset($_SESSION["flash_error"]); ?>
+  <?php endif; ?>
+</div>
 
 <!-- Page Header -->
 <header class="page-header">
@@ -18,6 +53,7 @@ require_once __DIR__ . "/../includes/navbar.php";
 <section class="filters-section">
   <div class="container">
     <div class="filters-container">
+
       <!-- Search Input -->
       <div class="search-input-wrapper">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -109,14 +145,96 @@ require_once __DIR__ . "/../includes/navbar.php";
 <!-- Books Grid Section -->
 <section class="books-section" style="flex: 1;">
   <div class="container">
-    <p id="results-count" class="results-count">Showing 6 books</p>
+    <p id="results-count" class="results-count">
+      Showing <?= $totalBooks ?> book<?= $totalBooks === 1 ? "" : "s" ?>
+    </p>
 
     <div class="books-grid full-grid" id="books-grid">
-      <!-- Books will be inserted by JavaScript -->
+
+      <?php if (empty($books)): ?>
+        <p style="padding:20px; opacity:0.8;">No books available at the moment.</p>
+      <?php else: ?>
+
+        <?php foreach ($books as $book): ?>
+          <?php
+            $bookId = (int)$book["id"];
+
+            $cover = $book["cover_url"] ?? "";
+            if (!$cover) {
+              $cover = BASE_URL . "/assets/images/default-book.jpg";
+            }
+
+            $title = htmlspecialchars($book["title"]);
+            $author = htmlspecialchars($book["author"]);
+            $genre = htmlspecialchars($book["genre"]);
+            $condition = htmlspecialchars($book["book_condition"]);
+            $owner = htmlspecialchars($book["owner"]);
+            $location = htmlspecialchars($book["location"]);
+
+            $alreadyInWishlist = in_array($bookId, $_SESSION["wishlist"]);
+          ?>
+
+          <div class="book-card"
+            data-title="<?= strtolower($book["title"]) ?>"
+            data-author="<?= strtolower($book["author"]) ?>"
+            data-genre="<?= $book["genre"] ?>"
+            data-condition="<?= $book["book_condition"] ?>"
+          >
+            <div class="book-cover">
+              <img src="<?= $cover ?>" alt="<?= $title ?>">
+              <?php if ((int)$book["featured"] === 1): ?>
+                <span class="featured-badge">Featured</span>
+              <?php endif; ?>
+            </div>
+
+            <div class="book-info">
+              <h3 class="book-title"><?= $title ?></h3>
+              <p class="book-author">by <?= $author ?></p>
+
+              <div class="book-meta">
+                <span class="tag"><?= $genre ?></span>
+                <span class="tag"><?= $condition ?></span>
+              </div>
+
+              <p class="book-extra">
+                <strong>Owner:</strong> <?= $owner ?><br>
+                <strong>Location:</strong> <?= $location ?>
+              </p>
+
+              <div style="margin-top:12px;">
+                <?php if ($alreadyInWishlist): ?>
+                  <button class="btn btn-outline" style="width:100%; opacity:0.7;" disabled>
+                    Added ✔
+                  </button>
+                <?php else: ?>
+                  <!-- <form action="<?= BASE_URL ?>/api/wishlist/add.php" method="POST">
+                    <input type="hidden" name="book_id" value="<?= $bookId ?>">
+                    <input type="hidden" name="title" value="<?= $title ?>">
+                    <input type="hidden" name="author" value="<?= $author ?>">
+                    <input type="hidden" name="cover" value="<?= htmlspecialchars($cover) ?>">
+
+                    <button type="submit" class="btn btn-outline" style="width:100%;">
+                      Add to Wishlist
+                    </button>
+                  </form> -->
+                  <form action="<?= BASE_URL ?>/api/wishlist/add.php" method="POST">
+                    <input type="hidden" name="book_id" value="<?= $bookId ?>">
+                      <button type="submit" class="btn btn-outline" style="width:100%;">
+                        Add to Wishlist
+                      </button>
+                  </form>
+                <?php endif; ?>
+              </div>
+
+            </div>
+          </div>
+
+        <?php endforeach; ?>
+
+      <?php endif; ?>
+
     </div>
   </div>
 </section>
 
-<?php
-require_once __DIR__ . "/../includes/footer.php";
-?>
+<?php require_once __DIR__ . "/../includes/footer.php"; ?>

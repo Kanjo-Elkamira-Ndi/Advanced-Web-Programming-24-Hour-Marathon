@@ -1,4 +1,5 @@
 <?php
+// includes/header.php
 require_once __DIR__ . "/config.php";
 
 if (!isset($page_title)) {

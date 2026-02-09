@@ -1,94 +1,62 @@
 <?php
 $page_title = "Login";
+require_once __DIR__ . "/../includes/session.php";
+
+// If already logged in, redirect away
+if (isset($_SESSION["user"])) {
+  header("Location: " . BASE_URL . "/index.php");
+  exit;
+}
+
 require_once __DIR__ . "/../includes/header.php";
 require_once __DIR__ . "/../includes/navbar.php";
 ?>
 
-<main class="auth-page">
-  <!-- LEFT -->
-  <section class="auth-left">
-    <div class="brand-card">
-      <div class="brand-top">
-        <div class="brand-logo">CBE</div>
-        <div>
-          <h3 class="brand-title">Community Book Exchange</h3>
-          <p class="brand-subtitle">Swap books, share knowledge, build community.</p>
-        </div>
-      </div>
+<section class="container" style="padding:50px 0; max-width:500px;">
+  <h1 style="margin-bottom:10px;">Welcome Back 👋</h1>
+  <p style="opacity:0.8; margin-bottom:25px;">Login to access your wishlist and features.</p>
 
-      <div class="brand-body">
-        <h2>Welcome back 📚</h2>
-        <p>
-          Log in to continue exchanging books, saving favorites, and connecting with other readers.
-        </p>
+  <!-- Alert box -->
+  <div class="alert" style="display:block;"></div>
 
-        <ul class="feature-list">
-          <li><span class="check">✓</span> Browse and exchange books easily</li>
-          <li><span class="check">✓</span> Save books to your wishlist</li>
-          <li><span class="check">✓</span> Discover new reads from your community</li>
-        </ul>
+  <form id="loginForm" autocomplete="off">
+    <div class="form-group" style="margin-bottom:15px;">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="example@gmail.com"
+        required
+      />
+    </div>
+
+    <div class="form-group" style="margin-bottom:15px;">
+      <label for="password">Password</label>
+
+      <div class="input-wrapper" style="display:flex; gap:10px; align-items:center;">
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Enter your password"
+          required
+        />
+        <button type="button" class="toggle-pass">Show</button>
       </div>
     </div>
-  </section>
 
-  <!-- RIGHT -->
-  <section class="auth-right">
-    <div class="form-card">
-      <header class="form-header">
-        <h1>Login</h1>
-        <p>Enter your details to access your account.</p>
-      </header>
+    <button type="submit" class="btn" style="width:100%; margin-top:10px;">
+      Login
+    </button>
+  </form>
 
-      <div class="alert"></div>
+  <p style="margin-top:20px; opacity:0.85;">
+    Don’t have an account?
+    <a href="./register.php">Create one</a>
+  </p>
+</section>
 
-      <form id="loginForm" class="form" novalidate>
-        <div class="field">
-          <label for="email">Email Address</label>
-          <input
-            class="input"
-            type="email"
-            id="email"
-            name="email"
-            placeholder="you@example.com"
-            required
-          />
-        </div>
+<script src="../assets/js/auth.js"></script>
 
-        <div class="field">
-          <label for="password">Password</label>
-          <div class="password-wrap">
-            <input
-              class="input"
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Enter your password"
-              required
-            />
-            <button type="button" class="toggle-pass">Show</button>
-          </div>
-        </div>
-
-        <div class="help-row">
-          <label class="checkbox">
-            <input type="checkbox" id="remember" />
-            Remember me
-          </label>
-
-          <a class="link" href="#">Forgot password?</a>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Log In</button>
-
-        <p class="form-footer">
-          Don’t have an account?
-          <a class="link" href="<?php echo BASE_URL; ?>/pages/register.php">Create one</a>
-        </p>
-      </form>
-    </div>
-  </section>
-</main>
-
-<?php
-require_once __DIR__ . "/../includes/footer.php";
-?>
+<?php require_once __DIR__ . "/../includes/footer.php"; ?>

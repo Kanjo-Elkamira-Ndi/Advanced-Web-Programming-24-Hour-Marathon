@@ -1,5 +1,7 @@
 <?php
 $page_title = "Home";
+
+require_once __DIR__ . "/includes/session.php";
 require_once __DIR__ . "/includes/header.php";
 require_once __DIR__ . "/includes/navbar.php";
 
@@ -10,7 +12,7 @@ $hour = (int) date("H");
 if ($hour < 12) {
   $greeting = "Good morning ☀️";
 } elseif ($hour < 18) {
-  $greeting = "Good afternoon 🌤️";
+  $greeting = "Good afternoon 🌤";
 } else {
   $greeting = "Good evening 🌙";
 }

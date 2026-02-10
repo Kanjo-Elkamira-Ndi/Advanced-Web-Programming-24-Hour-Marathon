@@ -7,8 +7,11 @@ require_once __DIR__ . "/../includes/header.php";
 require_once __DIR__ . "/../includes/navbar.php";
 
 // Fetch books from DB
+// Fetch FIRST batch only (for initial page load)
 $books = [];
-$sql = "SELECT * FROM books ORDER BY created_at DESC";
+$limit = 6;
+
+$sql = "SELECT * FROM books ORDER BY created_at DESC LIMIT $limit";
 $result = $conn->query($sql);
 
 if (!$result) {
@@ -234,7 +237,141 @@ $totalBooks = count($books);
       <?php endif; ?>
 
     </div>
+    <div class="text-center" style="margin:20px 0;">
+  <button id="load-more-btn" class="btn btn-primary">Load More</button>
+</div>
   </div>
 </section>
+
+<script>
+  let offset = <?= count($books) ?>;
+  const limit = 6;
+
+  const loadMoreBtn = document.getElementById("load-more-btn");
+  const booksGrid = document.getElementById("books-grid");
+
+  const wishlistIds = <?= json_encode(array_keys($_SESSION["wishlist"] ?? [])) ?>;
+
+  function escapeHtml(str) {
+    return String(str)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function createBookCard(book) {
+    const bookId = parseInt(book.id);
+
+    let cover = book.cover_url;
+    if (!cover || cover.trim() === "") {
+      cover = "<?= BASE_URL ?>/assets/images/default-book.jpg";
+    }
+
+    const title = escapeHtml(book.title ?? "");
+    const author = escapeHtml(book.author ?? "");
+    const genre = escapeHtml(book.genre ?? "");
+    const condition = escapeHtml(book.book_condition ?? "");
+    const owner = escapeHtml(book.owner ?? "");
+    const location = escapeHtml(book.location ?? "");
+
+    const featuredBadge = parseInt(book.featured) === 1
+      ? `<span class="featured-badge">Featured</span>`
+      : "";
+
+    const alreadyInWishlist = wishlistIds.includes(bookId);
+
+    let wishlistButton = "";
+
+    if (alreadyInWishlist) {
+      wishlistButton = `
+        <button class="btn btn-outline" style="width:100%; opacity:0.7;" disabled>
+          Added ✔
+        </button>
+      `;
+    } else {
+      wishlistButton = `
+        <form action="<?= BASE_URL ?>/api/wishlist/add.php" method="POST">
+          <input type="hidden" name="book_id" value="${bookId}">
+          <input type="hidden" name="title" value="${title}">
+          <input type="hidden" name="author" value="${author}">
+          <input type="hidden" name="cover" value="${escapeHtml(cover)}">
+
+          <button type="submit" class="btn btn-outline" style="width:100%;">
+            Add to Wishlist
+          </button>
+        </form>
+      `;
+    }
+
+    return `
+      <div class="book-card"
+        data-title="${(book.title ?? "").toLowerCase()}"
+        data-author="${(book.author ?? "").toLowerCase()}"
+        data-genre="${book.genre ?? ""}"
+        data-condition="${book.book_condition ?? ""}"
+      >
+        <div class="book-cover">
+          <img src="${escapeHtml(cover)}" alt="${title}">
+          ${featuredBadge}
+        </div>
+
+        <div class="book-info">
+          <h3 class="book-title">${title}</h3>
+          <p class="book-author">by ${author}</p>
+
+          <div class="book-meta">
+            <span class="tag">${genre}</span>
+            <span class="tag">${condition}</span>
+          </div>
+
+          <p class="book-extra">
+            <strong>Owner:</strong> ${owner}<br>
+            <strong>Location:</strong> ${location}
+          </p>
+
+          <div style="margin-top:12px;">
+            ${wishlistButton}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  async function loadMoreBooks() {
+    loadMoreBtn.disabled = true;
+    loadMoreBtn.innerText = "Loading...";
+
+    try {
+      const url = `<?= BASE_URL ?>/api/books/load.php?offset=${offset}&limit=${limit}`;
+      const response = await fetch(url);
+      const newBooks = await response.json();
+
+      if (!newBooks || newBooks.length === 0) {
+        loadMoreBtn.innerText = "No more books";
+        loadMoreBtn.disabled = true;
+        return;
+      }
+
+      newBooks.forEach(book => {
+        booksGrid.insertAdjacentHTML("beforeend", createBookCard(book));
+      });
+
+      offset += newBooks.length;
+
+      loadMoreBtn.disabled = false;
+      loadMoreBtn.innerText = "Load More";
+
+    } catch (err) {
+      console.error(err);
+      loadMoreBtn.disabled = false;
+      loadMoreBtn.innerText = "Load More";
+      alert("Failed to load more books.");
+    }
+  }
+
+  loadMoreBtn.addEventListener("click", loadMoreBooks);
+</script>
 
 <?php require_once __DIR__ . "/../includes/footer.php"; ?>

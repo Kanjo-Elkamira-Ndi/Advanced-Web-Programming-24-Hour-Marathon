@@ -1,30 +1,26 @@
 <?php
-header("Content-Type: application/json");
 require_once __DIR__ . "/../../includes/session.php";
 
+// Only logged-in users
 if (!isset($_SESSION["user"])) {
-  echo json_encode(["success" => false, "message" => "Login required"]);
+  header("Location: " . BASE_URL . "/pages/login.php");
   exit;
 }
 
-$data = json_decode(file_get_contents("php://input"), true);
-$bookId = (int)($data["bookId"] ?? 0);
-
-if ($bookId <= 0) {
-  echo json_encode(["success" => false, "message" => "Invalid book ID"]);
+if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+  header("Location: " . BASE_URL . "/pages/wishlist.php");
   exit;
 }
 
-if (!isset($_SESSION["wishlist"])) {
-  $_SESSION["wishlist"] = [];
+$book_id = isset($_POST["book_id"]) ? (int) $_POST["book_id"] : 0;
+
+if ($book_id > 0 && isset($_SESSION["wishlist"]) && is_array($_SESSION["wishlist"])) {
+  $_SESSION["wishlist"] = array_values(array_filter($_SESSION["wishlist"], function ($id) use ($book_id) {
+    return (int)$id !== $book_id;
+  }));
+
+  $_SESSION["flash_success"] = "Book removed from wishlist.";
 }
 
-$_SESSION["wishlist"] = array_values(array_filter($_SESSION["wishlist"], function($id) use ($bookId) {
-  return (int)$id !== $bookId;
-}));
-
-echo json_encode([
-  "success" => true,
-  "message" => "Book removed from wishlist",
-  "wishlist" => $_SESSION["wishlist"]
-]);
+header("Location: " . BASE_URL . "/pages/wishlist.php");
+exit;
